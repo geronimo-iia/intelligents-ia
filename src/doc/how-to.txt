@@ -1,0 +1,18 @@
+------------------------------------------
+Mini HOW TO
+------------------------------------------
+
+RELEASE AND GPG SIGNATURE:
+mvn release:perform -Darguments="-Dgpg.passphrase=<<your passphrase>>"
+mvn release:prepare -Dusername=XXX -Dpassword=XXXXXX
+
+Add source and javadoc on deploy:
+mvn deploy -DperformRelease=true
+
+FTP Reset connection on Windows...
+netsh advfirewall set global StatefulFTP disable
+
+
+
+
+

@@ -1,0 +1,367 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.intelligents-ia</groupId>
+	<artifactId>intelligents-ia</artifactId>
+	<packaging>pom</packaging>
+	<name>Intelligents-ia</name>
+	<version>1.4.1-SNAPSHOT</version>
+	<description>Super POM for Intelligents-ia Project.</description>
+	<url>http://intelligents-ia.com</url>
+	<inceptionYear>2011</inceptionYear>
+	<developers>
+		<developer>
+			<id>jerome.guibert.intelligents.ia.com</id>
+			<name>Jerome Guibert</name>
+			<organization>Intelligents-ia</organization>
+			<email>jguibert@intelligents-ia.com</email>
+		</developer>
+	</developers>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	<issueManagement>
+		<url>https://github.com/geronimo-iia/intelligents-ia/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+	<scm>
+		<url>https://github.com/geronimo-iia/intelligents-ia.git</url>
+		<connection>scm:git:https://github.com/geronimo-iia/intelligents-ia.git</connection>
+		<developerConnection>scm:git:https://github.com/geronimo-iia/intelligents-ia.git</developerConnection>
+	</scm>
+	<organization>
+		<name>Intelligents-ia</name>
+		<url>http://intelligents-ia.com</url>
+	</organization>
+	<!-- ******************************************************************* -->
+	<!-- BUILD -->
+	<!-- ******************************************************************* -->
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>${maven-antrun-plugin.version}1.7</version>
+				</plugin>
+				<!-- ******************************************************************* -->
+				<!-- Default Compiler and Resource -->
+				<!-- ******************************************************************* -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
+					<configuration>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+				<!-- ******************************************************************* -->
+				<!-- Add maven descriptor into Jar -->
+				<!-- ******************************************************************* -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven-jar-plugin.version}</version>
+					<configuration>
+						<archive>
+							<addMavenDescriptor>true</addMavenDescriptor>
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
+				<!-- ******************************************************************* -->
+				<!-- Source -->
+				<!-- ******************************************************************* -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven-source-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- ******************************************************************* -->
+				<!-- Checksum file will be deployed into repository with md5 and sha1 
+					extension. -->
+				<!-- ******************************************************************* -->
+				<plugin>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>${maven-install-plugin.version}</version>
+					<configuration>
+						<createChecksum>true</createChecksum>
+					</configuration>
+				</plugin>
+				<!-- ******************************************************************* -->
+				<!-- Release -->
+				<!-- ******************************************************************* -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>${maven-release-plugin.version}</version>
+					<configuration>
+						<scmCommentPrefix>[maven-release-plugin]</scmCommentPrefix>
+						<autoVersionSubmodules>true</autoVersionSubmodules>
+					</configuration>
+				</plugin>
+				<!-- ******************************************************************* -->
+				<!-- Site -->
+				<!-- ******************************************************************* -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>${maven-site-plugin.version}</version>
+				</plugin>
+				<!-- ******************************************************************* -->
+				<!-- Signature -->
+				<!-- ******************************************************************* -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>${maven-gpg-plugin.version}</version>
+					<configuration>
+						<keyname>${gnupg.keyname}</keyname>
+						<passphrase>${gnupg.passphrase}</passphrase>
+						<homedir>${gnupg.homedir}</homedir>
+						<skip>${gnupg.skip}</skip>
+					</configuration>
+					<executions>
+						<execution>
+							<id>sign-artifacts</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>sign</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- ******************************************************************* -->
+				<!-- LICENCE CHECK -->
+				<!-- ******************************************************************* -->
+				<plugin>
+					<groupId>com.mycila.maven-license-plugin</groupId>
+					<artifactId>maven-license-plugin</artifactId>
+					<version>${maven-license-plugin.version}</version>
+					<configuration>
+						<header>${license.header.path}</header>
+						<failIfMissing>true</failIfMissing>
+						<aggregate>true</aggregate>
+						<encoding>UTF-8</encoding>
+						<excludes>
+							<exclude>LICENSE.txt</exclude>
+							<exclude>README.*</exclude>
+							<exclude>NOTICE.*</exclude>
+							<exclude>docs/**</exclude>
+							<exclude>**/NOTES</exclude>
+							<exclude>**/src/doc/**</exclude>
+							<exclude>**/src/test/resources/**</exclude>
+							<exclude>**/.gitattributes</exclude>
+							<exclude>**/.gitignore</exclude>
+							<exclude>**/.svnignore</exclude>
+						</excludes>
+						<strictCheck>true</strictCheck>
+					</configuration>
+					<executions>
+						<execution>
+							<id>check-headers</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ftp</artifactId>
+				<version>${wagon-ssh.version}</version>
+			</extension>
+		</extensions>
+	</build>
+	<!-- ********************************************************************************* -->
+	<!-- PROFILE -->
+	<!-- ********************************************************************************* -->
+	<profiles>
+		<!-- ********************************************************************************* -->
+		<!-- DOCUMENT ON REQUEST PROFILE -->
+		<!-- -Ddocument=true -->
+		<!-- ********************************************************************************* -->
+		<profile>
+			<id>document-artifacts</id>
+			<activation>
+				<property>
+					<name>document</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- ********************************************************************************* -->
+		<!-- ON RELEASE PROFILE -->
+		<!-- ********************************************************************************* -->
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	<!-- ******************************************************************* -->
+	<!-- DISTRIBUTION -->
+	<!-- ******************************************************************* -->
+	<distributionManagement>
+		<repository>
+			<id>intelligents-ia-releases</id>
+			<url>ftp://ftp.lost-oasis.net/web-mvn.intelligents-ia.com/htdocs/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>intelligents-ia-snapshot</id>
+			<url>ftp://ftp.lost-oasis.net/web-mvn.intelligents-ia.com/htdocs/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<repositories>
+		<!-- Intelligents-ia RELEASE -->
+		<repository>
+			<id>intelligents-ia-releases</id>
+			<name>Intelligents-ia releases repository</name>
+			<url>http://mvn.intelligents-ia.com/releases</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<!-- Intelligents-ia SNAPSHOT -->
+		<repository>
+			<id>intelligents-ia-snapshot</id>
+			<name>Intelligents-ia snapshot repository</name>
+			<url>http://mvn.intelligents-ia.com/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<!-- Intelligents-ia Older Repository -->
+		<repository>
+			<id>intelligents-ia-snapshot</id>
+			<name>Intelligents-ia snapshot repository</name>
+			<url>http://intelligents-ia.com/maven2</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>intelligents-ia-releases</id>
+			<name>Intelligents-ia releases repository</name>
+			<url>http://mvn.intelligents-ia.com/releases</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>intelligents-ia-snapshot</id>
+			<name>Intelligents-ia snapshot repository</name>
+			<url>http://mvn.intelligents-ia.com/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+	<!-- ******************************************************************* -->
+	<!-- PROPERTIES -->
+	<!-- ******************************************************************* -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- Current version -->
+		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
+		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+		<maven-resources-plugin.version>2.5</maven-resources-plugin.version>
+		<maven-jar-plugin.version>2.3.2</maven-jar-plugin.version>
+		<maven-source-plugin.version>2.1.2</maven-source-plugin.version>
+		<maven-install-plugin.version>2.4</maven-install-plugin.version>
+		<maven-release-plugin.version>2.2.2</maven-release-plugin.version>
+		<maven-site-plugin.version>3.1</maven-site-plugin.version>
+		<wagon-ssh.version>2.2</wagon-ssh.version>
+		<maven-site-plugin.version>3.1</maven-site-plugin.version>
+		<maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
+		<maven-license-plugin.version>1.9.0</maven-license-plugin.version>
+
+		<!-- License header default path. In multimodule project all chil should 
+			overide this property with: <br /> <code><license.header.path>${basedir}/../header.txt</license.header.path></code> -->
+		<license.header.path>${basedir}/header.txt</license.header.path>
+		<!-- GnuPg Configuration key to define per project. By default GnuPg is 
+			disabled -->
+		<gnupg.homedir>${basedir}/src/gnupg</gnupg.homedir>
+		<gnupg.keyname>Your Key Name</gnupg.keyname>
+		<gnupg.passphrase>Your Passphrase</gnupg.passphrase>
+		<gnupg.skip>true</gnupg.skip>
+	</properties>
+</project>

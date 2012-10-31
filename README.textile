@@ -1,0 +1,83 @@
+h1. Intelligents-ia
+
+What we can found in this project ?
+
+A super pom for my maven projects which configure many many things like:
+
+* Default compiler and resource: JDK6, UTF-8
+* Maven jar add maven descriptor
+* Source artifact will be generated on jar goal
+* Checksum file will be deployed into repository with md5 and sha1 extension
+* Release automatically assign submodules the parent version
+* Configure maven-gpg-plugin to sign with gpg and automaticaly call it on release
+* Configure maven-license-plugin to add license information
+* Profile 'document-artifacts' -Ddocument=true generate source and javadoc artifact
+* Configure distribution Management and repository
+
+"Intelligents-ia":http://iIntelligents-ia.com is my personal blog for playing...
+
+h2. GNUPG
+
+In order to work with it, you should do: 
+* install "Gnupg":http://www.gnupg.org/
+* generate de secret key "example":http://www.cyberciti.biz/tips/linux-how-to-create-our-own-gnupg-privatepublic-key.html "gpg --gen-key"
+* configure your pom with this property
+
+** gnupg.homedir: The directory from which gpg will load keyrings. 
+** gnupg.keyname: Your Key Name
+** gnupg.passphrase: Your Passphrase
+** gnupg.skip: set to false to use it
+
+bc. 
+<properties>
+	<gnupg.homedir>${basedir}/src/gnupg</gnupg.homedir>
+	<gnupg.keyname>Your Key Name</gnupg.keyname>
+	<gnupg.passphrase>Your Passphrase</gnupg.passphrase>
+	<gnupg.skip>false</gnupg.skip>
+</properties>
+
+
+
+h2. License
+
+In your project you should have on root:
+
+* a LICENSE.txt with license content
+* a NOTICE.txt 
+* header.txt the header content which will be set
+
+In pom of your your sub module, set properties like this:
+
+bc. 
+<license.header.path>${basedir}/../header.txt</license.header.path> 
+
+
+License will be check on package phase.
+
+To add header information your have to do
+
+bc. 
+mvn license:format
+
+
+h2. Eclipse Formatter, code templates and clean up
+
+Under src/config you could find:
+* "codetemplates.xml":src/config/codetemplates.xml
+* "eclipse-clean-up.xml":src/config/eclipse-clean-up.xml
+* "eclipse-formatter.xml":src/config/eclipse-formatter.xml
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+

@@ -1,4 +1,0 @@
-intelligents-ia
-===============
-
-maven stuff
