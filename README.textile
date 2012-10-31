@@ -69,11 +69,34 @@ Under src/config you could find:
 
 
 
+h2. Configure your pom
+
+h3. add parent section
+
+bc. 
+<parent>
+	<groupId>org.intelligents-ia</groupId>
+	<artifactId>intelligents-ia</artifactId>
+	<version>1.4.0</version>
+</parent>
+
+h3. add initial repository
 
 
-
-
-
+bc. 
+<repositories>
+	<repository>
+		<id>intelligents-ia-releases</id>
+		<name>Intelligents-ia releases repository</name>
+		<url>http://mvn.intelligents-ia.com/releases</url>
+		<releases>
+			<enabled>true</enabled>
+		</releases>
+		<snapshots>
+			<enabled>false</enabled>
+		</snapshots>
+	</repository>
+</repositories>
 
 
 
