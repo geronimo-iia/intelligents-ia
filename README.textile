@@ -63,9 +63,9 @@ mvn license:format
 h2. Eclipse Formatter, code templates and clean up
 
 Under src/config you could find:
-* "codetemplates.xml":intelligents-ia/src/config/codetemplates.xml
-* "eclipse-clean-up.xml":intelligents-ia/src/config/eclipse-clean-up.xml
-* "eclipse-formatter.xml":intelligents-ia/src/config/eclipse-formatter.xml
+* "codetemplates.xml":https://github.com/geronimo-iia/intelligents-ia/src/config/codetemplates.xml
+* "eclipse-clean-up.xml":https://github.com/geronimo-iia/intelligents-ia/src/config/eclipse-clean-up.xml
+* "eclipse-formatter.xml":https://github.com/geronimo-iia/intelligents-ia/src/config/eclipse-formatter.xml
 
 
 
