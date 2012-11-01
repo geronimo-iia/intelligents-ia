@@ -77,7 +77,7 @@ bc.
 <parent>
 	<groupId>org.intelligents-ia</groupId>
 	<artifactId>intelligents-ia</artifactId>
-	<version>1.4.0</version>
+	<version>1.4.1</version>
 </parent>
 
 h3. add initial repository
@@ -100,7 +100,34 @@ bc.
 
 
 
+h2. Release Notes
  
+
+h3. 1.4.2-SNAPSHOT
+
+Some idea for the next release:
+* integrate github plugin 
+** downloads-maven-plugin
+**  site-maven-plugin
+* add optimized compilation profile
+
+
+h3. 1.4.1
+ 
+bc. 
+<dependency>
+	<groupId>org.intelligents-ia</groupId>
+	<artifactId>intelligents-ia</artifactId>
+	<version>1.4.1</version>
+</dependency>
+ 
+Change list:
+* add older repository
+* add license plugin configuration
+* add gnupg plugin configuration
+* add initial config for maven site plugin
+
+
 
 
 
