@@ -299,7 +299,7 @@
 		</repository>
 		<!-- Intelligents-ia Older Repository -->
 		<repository>
-			<id>intelligents-ia-snapshot</id>
+			<id>intelligents-ia-snapshot-old</id>
 			<name>Intelligents-ia snapshot repository</name>
 			<url>http://intelligents-ia.com/maven2</url>
 			<releases>
