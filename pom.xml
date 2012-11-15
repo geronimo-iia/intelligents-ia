@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.intelligents-ia</groupId>
 	<artifactId>intelligents-ia</artifactId>
@@ -57,6 +58,8 @@
 						<source>1.6</source>
 						<target>1.6</target>
 						<encoding>UTF-8</encoding>
+						<optimize>${maven.compiler.optimize}</optimize>
+						<showDeprecation>${maven.compiler.showDeprecation}</showDeprecation>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -162,6 +165,7 @@
 					<version>${maven-license-plugin.version}</version>
 					<configuration>
 						<header>${license.header.path}</header>
+						<skip>${license.skip}</skip>
 						<failIfMissing>true</failIfMissing>
 						<aggregate>true</aggregate>
 						<encoding>UTF-8</encoding>
@@ -176,6 +180,8 @@
 							<exclude>**/.gitattributes</exclude>
 							<exclude>**/.gitignore</exclude>
 							<exclude>**/.svnignore</exclude>
+							<exclude>**/src/config/**</exclude>
+							<exclude>**/git.properties</exclude>
 						</excludes>
 						<strictCheck>true</strictCheck>
 					</configuration>
@@ -189,8 +195,105 @@
 						</execution>
 					</executions>
 				</plugin>
+				<!-- ******************************************************************* -->
+				<!-- Help to find which version and commit is running -->
+				<!-- https://github.com/ktoso/maven-git-commit-id-plugin -->
+				<!-- ******************************************************************* -->
+				<plugin>
+					<groupId>pl.project13.maven</groupId>
+					<artifactId>git-commit-id-plugin</artifactId>
+					<version>2.1.0</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>revision</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<!-- that's the default value, you don't have to set it -->
+						<prefix>git</prefix>
+						<!-- that's the default value -->
+						<dateFormat>dd.MM.yyyy '@' HH:mm:ss z</dateFormat>
+						<verbose>false</verbose>
+						<!-- If you'd like to tell the plugin where your .git directory is, 
+							use this setting, otherwise we'll perform a search trying to figure out the 
+							right directory. It's better to add it explicite IMHO. -->
+						<dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+						<!-- ALTERNATE SETUP - GENERATE FILE -->
+						<!-- If you want to keep git information, even in your WAR file etc, 
+							use this mode, which will generate a properties file (with filled out values) 
+							which you can then normally read using new Properties().load(/**/) -->
+						<!-- this is true by default; You may want to set this to false, if 
+							the plugin should run inside a <packaging>pom</packaging> project. Most projects 
+							won't need to override this property. For an use-case for this kind of behaviour 
+							see: https://github.com/ktoso/maven-git-commit-id-plugin/issues/21 -->
+						<skipPoms>true</skipPoms>
+						<!-- this is false by default, forces the plugin to generate the git.properties 
+							file -->
+						<generateGitPropertiesFile>true</generateGitPropertiesFile>
+						<!-- The path for the to be generated properties file, it's relative 
+							to ${project.basedir} -->
+						<generateGitPropertiesFilename>src/main/resources/git.properties</generateGitPropertiesFilename>
+						<!-- true by default, controls whether the plugin will fail when no 
+							.git directory is found, when set to false the plugin will just skip execution -->
+						<!-- @since 2.0.4 -->
+						<failOnNoGitDirectory>false</failOnNoGitDirectory>
+						<!-- @since 2.1.0 -->
+						<!-- read up about git-describe on the in man, or it's homepage - it's 
+							a really powerful versioning helper and the recommended way to use git-commit-id-plugin. 
+							The configuration bellow is optional, by default describe will run "just 
+							like git-describe on the command line", even though it's a JGit reimplementation. -->
+						<gitDescribe>
+							<!-- don't generate the describe property -->
+							<skip>false</skip>
+							<!-- if no tag was found "near" this commit, just print the commit's 
+								id instead, helpful when you always expect this field to be not-empty -->
+							<always>true</always>
+							<!-- how many chars should be displayed as the commit object id? 7 
+								is git's default, 0 has a special meaning (see end of this README.md), and 
+								40 is the maximum value here -->
+							<abbrev>7</abbrev>
+							<!-- when the build is triggered while the repo is in "dirty state", 
+								append this suffix -->
+							<dirty>-dirty</dirty>
+							<!-- always print using the "tag-commits_from_tag-g_commit_id-maybe_dirty" 
+								format, even if "on" a tag. The distance will always be 0 if you're "on" 
+								the tag. -->
+							<forceLongFormat>false</forceLongFormat>
+						</gitDescribe>
+					</configuration>
+				</plugin>
+				<!-- ******************************************************************* -->
+				<!-- downloads-maven-plugin -->
+				<!-- https://github.com/github/maven-plugins -->
+				<!-- ******************************************************************* -->
+				<plugin>
+					<groupId>com.github.github</groupId>
+					<artifactId>downloads-maven-plugin</artifactId>
+					<version>0.5</version>
+					<configuration>
+						<description>${project.version} release of ${project.name}</description>
+						<override>true</override>
+						<includeAttached>true</includeAttached>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>upload</goal>
+							</goals>
+							<phase>deploy</phase>
+						</execution>
+					</executions>
+				</plugin>
 			</plugins>
 		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>com.mycila.maven-license-plugin</groupId>
+				<artifactId>maven-license-plugin</artifactId>
+			</plugin>
+		</plugins>
 		<extensions>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
@@ -203,6 +306,44 @@
 	<!-- PROFILE -->
 	<!-- ********************************************************************************* -->
 	<profiles>
+		<!-- ********************************************************************************* -->
+		<!-- INTELLIGENTS-IA PROFILE -->
+		<!-- ********************************************************************************* -->
+		<profile>
+			<id>intelligents-ia</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>pl.project13.maven</groupId>
+						<artifactId>git-commit-id-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- ********************************************************************************* -->
+		<!-- downloads-github PROFILE -->
+		<!-- ********************************************************************************* -->
+		<profile>
+			<id>downloads-github</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.github.github</groupId>
+						<artifactId>downloads-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+			<properties>
+				<!-- Github server id to add in settings.xml -->
+				<github.global.server>github</github.global.server>
+			</properties>
+		</profile>
 		<!-- ********************************************************************************* -->
 		<!-- DOCUMENT ON REQUEST PROFILE -->
 		<!-- -Ddocument=true -->
@@ -356,11 +497,17 @@
 		<!-- License header default path. In multimodule project all chil should 
 			overide this property with: <br /> <code><license.header.path>${basedir}/../header.txt</license.header.path></code> -->
 		<license.header.path>${basedir}/header.txt</license.header.path>
+		<license.skip>false</license.skip>
+
 		<!-- GnuPg Configuration key to define per project. By default GnuPg is 
 			disabled -->
 		<gnupg.homedir>${basedir}/src/gnupg</gnupg.homedir>
 		<gnupg.keyname>Your Key Name</gnupg.keyname>
 		<gnupg.passphrase>Your Passphrase</gnupg.passphrase>
 		<gnupg.skip>true</gnupg.skip>
+
+		<!-- Maven Compiler settings -->
+		<maven.compiler.optimize>true</maven.compiler.optimize>
+		<maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
 	</properties>
 </project>

@@ -59,6 +59,18 @@ To add header information your have to do
 bc. 
 mvn license:format
 
+If you would NOT use this plugin, set property 'license.skip' to true
+
+bc. 
+mvn -Dlicense.skip=true
+
+or
+
+bc. 
+<properties>
+	<license.skip>true</license.skip>
+</properties>
+
 
 h2. Eclipse Formatter, code templates and clean up
 
@@ -66,6 +78,44 @@ Under src/config you could find:
 * "codetemplates.xml":https://github.com/geronimo-iia/intelligents-ia/tree/master/src/config/codetemplates.xml
 * "eclipse-clean-up.xml":https://github.com/geronimo-iia/intelligents-ia/tree/master/src/config/eclipse-clean-up.xml
 * "eclipse-formatter.xml":https://github.com/geronimo-iia/intelligents-ia/tree/master/src/config/eclipse-formatter.xml
+
+
+h2. Find which version, tags and commit, comment that running 
+
+From "git-commit-id-plugin":https://github.com/ktoso/maven-git-commit-id-plugin
+
+This generate some usefull information in:
+
+bc. 
+src/main/resources/git.properties
+
+h2. GitHub maven plugin
+
+From "GitHub":https://github.com/github/maven-plugins, if you would upload artifact on GitHub download section, you have to:
+
+# activate profile 'downloads-github'
+
+bc. mvn -Pdownloads-github
+
+
+# add a server section in your settings.xml
+bc. 
+<servers>
+  <server>
+    <id>github</id>
+    <username>GitHubLogin</username>
+    <password>GitHubPassw0rd</password>
+  </server>
+</servers>
+
+
+This plugin will be activated by:
+
+bc. mvn deploy -Pdownloads-github
+
+or
+
+bc. mvn ghDownloads:upload -Pdownloads-github
 
 
 
@@ -103,13 +153,28 @@ bc.
 h2. Release Notes
  
 
-h3. 1.4.2-SNAPSHOT
+h3. 1.4.3-SNAPSHOT
 
 Some idea for the next release:
-* integrate github plugin 
-** downloads-maven-plugin
-**  site-maven-plugin
-* add optimized compilation profile
+* site-maven-plugin
+
+
+h3. 1.4.2 Coming soon
+
+bc. 
+<dependency>
+	<groupId>org.intelligents-ia</groupId>
+	<artifactId>intelligents-ia</artifactId>
+	<version>1.4.2</version>
+</dependency>
+
+
+Change list:
+* add optimized compilation
+* integrate download "github plugin":https://github.com/github/maven-plugins
+* fix issue on maven-antrun-plugin version
+* activate license plugin and add skip mechanism with property 'license.skip' 
+* create profile intelligents-ia, activated per default  
 
 
 h3. 1.4.1
