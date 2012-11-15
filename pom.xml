@@ -4,7 +4,7 @@
 	<artifactId>intelligents-ia</artifactId>
 	<packaging>pom</packaging>
 	<name>Intelligents-ia</name>
-	<version>1.4.3-SNAPSHOT</version>
+	<version>1.4.3</version>
 	<description>Super POM for Intelligents-ia Project.</description>
 	<url>http://intelligents-ia.com</url>
 	<inceptionYear>2011</inceptionYear>
