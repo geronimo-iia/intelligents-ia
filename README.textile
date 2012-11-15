@@ -89,6 +89,14 @@ This generate some usefull information in:
 bc. 
 src/main/resources/git.properties
 
+Add in your .gitignore
+
+bc. 
+# git.properties
+**/src/main/resources/git.properties
+
+
+
 h2. GitHub maven plugin
 
 From "GitHub":https://github.com/github/maven-plugins, if you would upload artifact on GitHub download section, you have to:
