@@ -29,7 +29,6 @@
 	<scm>
 		<url>https://github.com/geronimo-iia/intelligents-ia.git</url>
 		<connection>scm:git:https://github.com/geronimo-iia/intelligents-ia.git</connection>
-		<developerConnection>scm:git:https://github.com/geronimo-iia/intelligents-ia.git</developerConnection>
 	</scm>
 	<organization>
 		<name>Intelligents-ia</name>
