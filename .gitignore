@@ -2,3 +2,6 @@ target/
 .project
 .classpath
 .settings/
+
+# git.properties
+git.properties
