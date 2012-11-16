@@ -203,6 +203,7 @@
 					<version>2.1.0</version>
 					<executions>
 						<execution>
+                                                        <id>git-commit-properties</id>
 							<goals>
 								<goal>revision</goal>
 							</goals>
@@ -277,6 +278,7 @@
 					</configuration>
 					<executions>
 						<execution>
+                                                        <id>git-upload-sources</id>
 							<goals>
 								<goal>upload</goal>
 							</goals>
