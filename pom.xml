@@ -180,6 +180,9 @@
 							<exclude>**/.svnignore</exclude>
 							<exclude>**/src/config/**</exclude>
 							<exclude>**/git.properties</exclude>
+							<exclude>**/*.sh</exclude>
+							<exclude>**/*.bat</exclude>
+							<exclude>**/*.backup</exclude>
 						</excludes>
 						<strictCheck>true</strictCheck>
 					</configuration>
