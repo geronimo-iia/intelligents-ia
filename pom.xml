@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.intelligents-ia</groupId>
 	<artifactId>intelligents-ia</artifactId>
@@ -80,6 +81,7 @@
 							<addMavenDescriptor>true</addMavenDescriptor>
 							<manifest>
 								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+								<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 							</manifest>
 						</archive>
 					</configuration>
@@ -130,6 +132,34 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
 					<version>${maven-site-plugin.version}</version>
+					<configuration>
+						<reportPlugins>
+							<plugin>
+								<groupId>org.apache.maven.plugins</groupId>
+								<artifactId>maven-project-info-reports-plugin</artifactId>
+								<version>2.2</version>
+								<configuration>
+									<dependencyDetailsEnabled>true</dependencyDetailsEnabled>
+									<dependencyLocationsEnabled>true</dependencyLocationsEnabled>
+								</configuration>
+							</plugin>
+							<plugin>
+								<groupId>org.apache.maven.plugins</groupId>
+								<artifactId>maven-javadoc-plugin</artifactId>
+								<version>2.7</version>
+							</plugin>
+							<plugin>
+								<groupId>org.apache.maven.plugins</groupId>
+								<artifactId>maven-surefire-report-plugin</artifactId>
+								<version>2.6</version>
+							</plugin>
+							<plugin>
+								<groupId>org.apache.maven.plugins</groupId>
+								<artifactId>maven-checkstyle-plugin</artifactId>
+								<version>2.6</version>
+							</plugin>
+						</reportPlugins>
+					</configuration>
 				</plugin>
 				<!-- ******************************************************************* -->
 				<!-- Signature -->
@@ -153,6 +183,14 @@
 							</goals>
 						</execution>
 					</executions>
+				</plugin>
+				<!-- ******************************************************************* -->
+				<!-- Reactor -->
+				<!-- ******************************************************************* -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-reactor-plugin</artifactId>
+					<version>${maven-reactor-plugin.version}</version>
 				</plugin>
 				<!-- ******************************************************************* -->
 				<!-- LICENCE CHECK -->
@@ -203,7 +241,7 @@
 				<plugin>
 					<groupId>pl.project13.maven</groupId>
 					<artifactId>git-commit-id-plugin</artifactId>
-					<version>2.1.0</version>
+					<version>${pl.project13.maven.version}</version>
 					<executions>
 						<execution>
 							<id>git-commit-properties</id>
@@ -267,27 +305,62 @@
 					</configuration>
 				</plugin>
 				<!-- ******************************************************************* -->
-				<!-- downloads-maven-plugin -->
+				<!-- site-maven-plugin -->
 				<!-- https://github.com/github/maven-plugins -->
 				<!-- ******************************************************************* -->
 				<plugin>
 					<groupId>com.github.github</groupId>
 					<artifactId>downloads-maven-plugin</artifactId>
-					<version>0.5</version>
+					<version>0.6</version>
 					<configuration>
-						<description>${project.version} release of ${project.name}</description>
+						<description>Official ${project.name} build of the
+							${project.version} release</description>
 						<override>true</override>
 						<includeAttached>true</includeAttached>
+						<server>github</server>
 					</configuration>
 					<executions>
 						<execution>
-							<id>git-upload-sources</id>
 							<goals>
 								<goal>upload</goal>
 							</goals>
-							<phase>deploy</phase>
+							<phase>install</phase>
 						</execution>
 					</executions>
+				</plugin>
+				<plugin>
+					<groupId>com.github.github</groupId>
+					<artifactId>site-maven-plugin</artifactId>
+					<version>0.8</version>
+					<configuration>
+						<message>Creating site for ${project.version}</message>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>site</goal>
+							</goals>
+							<phase>site</phase>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- ******************************************************************* -->
+				<!-- JGitFlow -->
+				<!-- ******************************************************************* -->
+				<plugin>
+					<groupId>com.atlassian.maven.plugins</groupId>
+					<artifactId>maven-jgitflow-plugin</artifactId>
+					<version>${maven-jgitflow-plugin.version}</version>
+					<configuration>
+						<flowInitContext>
+							<masterBranchName>master</masterBranchName>
+							<developBranchName>development</developBranchName>
+							<featureBranchPrefix>feature-</featureBranchPrefix>
+							<releaseBranchPrefix>release-</releaseBranchPrefix>
+							<hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
+							<versionTagPrefix>iia-</versionTagPrefix>
+						</flowInitContext>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -496,6 +569,7 @@
 		<maven-site-plugin.version>3.1</maven-site-plugin.version>
 		<maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
 		<maven-license-plugin.version>1.9.0</maven-license-plugin.version>
+		<maven-reactor-plugin.version>1.0</maven-reactor-plugin.version>
 
 		<!-- License header default path. In multimodule project all chil should 
 			overide this property with: <br /> <code><license.header.path>${basedir}/../header.txt</license.header.path></code> -->
@@ -508,6 +582,17 @@
 		<gnupg.keyname>Your Key Name</gnupg.keyname>
 		<gnupg.passphrase>Your Passphrase</gnupg.passphrase>
 		<gnupg.skip>true</gnupg.skip>
+
+		<!-- other plugin version -->
+		<maven-jgitflow-plugin.version>1.0-alpha21.1</maven-jgitflow-plugin.version>
+		<pl.project13.maven.version>2.1.5</pl.project13.maven.version>
+
+		<!-- github server id for ghsite https://github.com/github/maven-plugins -->
+		<!-- Add the following to your Maven settings.xml file updated with your 
+			GitHub login name and password: -->
+		<!-- <servers> <server> <id>github</id> <username>user</username> <password>password</password> 
+			</server> </servers> -->
+		<github.global.server>github</github.global.server>
 
 		<!-- Maven Compiler settings -->
 		<maven.compiler.optimize>true</maven.compiler.optimize>
