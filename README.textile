@@ -135,7 +135,7 @@ bc.
 <parent>
 	<groupId>org.intelligents-ia</groupId>
 	<artifactId>intelligents-ia</artifactId>
-	<version>1.4.4</version>
+	<version>1.4.5</version>
 </parent>
 
 h3. add initial repository
