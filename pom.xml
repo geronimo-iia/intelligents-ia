@@ -375,6 +375,11 @@
 				<artifactId>wagon-ftp</artifactId>
 				<version>${wagon-ssh.version}</version>
 			</extension>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>${wagon-ssh.version}</version>
+			</extension>			
 		</extensions>
 	</build>
 	<!-- ********************************************************************************* -->
@@ -480,11 +485,11 @@
 	<distributionManagement>
 		<repository>
 			<id>intelligents-ia-releases</id>
-			<url>sftp://sftp.dc0.gpaas.net:vhosts/mvn.intelligents-ia.com/htdocs/releases</url>
+			<url>sftp://sftp.dc0.gpaas.net:/vhosts/mvn.intelligents-ia.com/htdocs/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>intelligents-ia-snapshot</id>
-			<url>sftp://sftp.dc0.gpaas.net:vhosts/mvn.intelligents-ia.com/htdocs/snapshots</url>
+			<url>sftp://sftp.dc0.gpaas.net:/vhosts/mvn.intelligents-ia.com/htdocs/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<repositories>
@@ -507,18 +512,6 @@
 			<url>http://mvn.intelligents-ia.com/snapshots</url>
 			<releases>
 				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<!-- Intelligents-ia Older Repository -->
-		<repository>
-			<id>intelligents-ia-snapshot-old</id>
-			<name>Intelligents-ia snapshot repository</name>
-			<url>http://intelligents-ia.com/maven2</url>
-			<releases>
-				<enabled>true</enabled>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
@@ -564,7 +557,7 @@
 		<maven-install-plugin.version>2.4</maven-install-plugin.version>
 		<maven-release-plugin.version>2.2.2</maven-release-plugin.version>
 		<maven-site-plugin.version>3.1</maven-site-plugin.version>
-		<wagon-ssh.version>2.2</wagon-ssh.version>
+		<wagon-ssh.version>2.6</wagon-ssh.version>
 		<maven-site-plugin.version>3.1</maven-site-plugin.version>
 		<maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
 		<maven-license-plugin.version>1.9.0</maven-license-plugin.version>
