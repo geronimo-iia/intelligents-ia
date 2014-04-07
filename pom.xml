@@ -480,11 +480,11 @@
 	<distributionManagement>
 		<repository>
 			<id>intelligents-ia-releases</id>
-			<url>ftp://ftp.lost-oasis.net/web-mvn.intelligents-ia.com/htdocs/releases</url>
+			<url>sftp://sftp.dc0.gpaas.net:vhosts/mvn.intelligents-ia.com/htdocs/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>intelligents-ia-snapshot</id>
-			<url>ftp://ftp.lost-oasis.net/web-mvn.intelligents-ia.com/htdocs/snapshots</url>
+			<url>sftp://sftp.dc0.gpaas.net:vhosts/mvn.intelligents-ia.com/htdocs/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<repositories>
