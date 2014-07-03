@@ -361,6 +361,14 @@
 						</flowInitContext>
 					</configuration>
 				</plugin>
+				<!-- ******************************************************************* -->
+				<!-- Keystone Plugin Declaration -->
+				<!-- ******************************************************************* -->	
+				<plugin>
+		            <groupId>org.intelligents-ia.keystone</groupId>
+		            <artifactId>keystone-plugin</artifactId>
+		            <version>${keystone-plugin.version}</version>
+	            </plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -373,6 +381,11 @@
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
 				<artifactId>wagon-ftp</artifactId>
+				<version>${wagon-ftp.version}</version>
+			</extension>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
 				<version>${wagon-ssh.version}</version>
 			</extension>
 		</extensions>
@@ -480,11 +493,11 @@
 	<distributionManagement>
 		<repository>
 			<id>intelligents-ia-releases</id>
-			<url>ftp://ftp.lost-oasis.net/web-mvn.intelligents-ia.com/htdocs/releases</url>
+			<url>${intelligentsia.distribution.management}/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>intelligents-ia-snapshot</id>
-			<url>ftp://ftp.lost-oasis.net/web-mvn.intelligents-ia.com/htdocs/snapshots</url>
+			<url>${intelligentsia.distribution.management}/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<repositories>
@@ -557,18 +570,18 @@
 
 		<!-- Current version -->
 		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
-		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
-		<maven-resources-plugin.version>2.5</maven-resources-plugin.version>
-		<maven-jar-plugin.version>2.3.2</maven-jar-plugin.version>
-		<maven-source-plugin.version>2.1.2</maven-source-plugin.version>
-		<maven-install-plugin.version>2.4</maven-install-plugin.version>
-		<maven-release-plugin.version>2.2.2</maven-release-plugin.version>
-		<maven-site-plugin.version>3.1</maven-site-plugin.version>
-		<wagon-ssh.version>2.2</wagon-ssh.version>
-		<maven-site-plugin.version>3.1</maven-site-plugin.version>
-		<maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
+		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
+		<maven-jar-plugin.version>2.5</maven-jar-plugin.version>
+		<maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+		<maven-install-plugin.version>2.5.1</maven-install-plugin.version>
+		<maven-release-plugin.version>2.5</maven-release-plugin.version>
+		<maven-site-plugin.version>3.3</maven-site-plugin.version>
+		<wagon-ftp.version>2.6</wagon-ftp.version>
+		<wagon-ssh.version>2.6</wagon-ssh.version>
+		<maven-gpg-plugin.version>1.5</maven-gpg-plugin.version>
 		<maven-license-plugin.version>1.9.0</maven-license-plugin.version>
-		<maven-reactor-plugin.version>1.0</maven-reactor-plugin.version>
+		<maven-reactor-plugin.version>1.1</maven-reactor-plugin.version>
 
 		<!-- License header default path. In multimodule project all chil should 
 			overide this property with: <br /> <code><license.header.path>${basedir}/../header.txt</license.header.path></code> -->
@@ -583,8 +596,8 @@
 		<gnupg.skip>true</gnupg.skip>
 
 		<!-- other plugin version -->
-		<maven-jgitflow-plugin.version>1.0-alpha21.1</maven-jgitflow-plugin.version>
-		<pl.project13.maven.version>2.1.5</pl.project13.maven.version>
+		<maven-jgitflow-plugin.version>1.0-m3</maven-jgitflow-plugin.version>
+		<pl.project13.maven.version>2.1.10</pl.project13.maven.version>
 
 		<!-- github server id for ghsite https://github.com/github/maven-plugins -->
 		<!-- Add the following to your Maven settings.xml file updated with your 
@@ -596,5 +609,9 @@
 		<!-- Maven Compiler settings -->
 		<maven.compiler.optimize>true</maven.compiler.optimize>
 		<maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
+		
+		<!--  Intelligents-ia version management -->
+		<keystone-plugin.version>3.1</keystone-plugin.version>
+		
 	</properties>
 </project>
