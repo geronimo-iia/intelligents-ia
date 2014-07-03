@@ -14,21 +14,21 @@ A super pom for my maven projects which configure many many things like:
 * Profile 'document-artifacts' -Ddocument=true generate source and javadoc artifact
 * Configure distribution Management and repository
 
-"Intelligents-ia":http://iIntelligents-ia.com is my personal blog for playing...
+"Intelligents-ia":http://intelligents-ia.com is my personal blog for playing...
 
 h2. GNUPG
 
-In order to work with it, you should do: 
+In order to work with it, you should do:
 * install "Gnupg":http://www.gnupg.org/
 * generate de secret key "example":http://www.cyberciti.biz/tips/linux-how-to-create-our-own-gnupg-privatepublic-key.html "gpg --gen-key"
 * configure your pom with this property
 
-** gnupg.homedir: The directory from which gpg will load keyrings. 
+** gnupg.homedir: The directory from which gpg will load keyrings.
 ** gnupg.keyname: Your Key Name
 ** gnupg.passphrase: Your Passphrase
 ** gnupg.skip: set to false to use it
 
-bc. 
+bc.
 <properties>
 	<gnupg.homedir>${basedir}/src/gnupg</gnupg.homedir>
 	<gnupg.keyname>Your Key Name</gnupg.keyname>
@@ -43,30 +43,30 @@ h2. License
 In your project you should have on root:
 
 * a LICENSE.txt with license content
-* a NOTICE.txt 
+* a NOTICE.txt
 * header.txt the header content which will be set
 
 In pom of your your sub module, set properties like this:
 
-bc. 
-<license.header.path>${basedir}/../header.txt</license.header.path> 
+bc.
+<license.header.path>${basedir}/../header.txt</license.header.path>
 
 
 License will be check on package phase.
 
 To add header information your have to do
 
-bc. 
+bc.
 mvn license:format
 
 If you would NOT use this plugin, set property 'license.skip' to true
 
-bc. 
+bc.
 mvn -Dlicense.skip=true
 
 or
 
-bc. 
+bc.
 <properties>
 	<license.skip>true</license.skip>
 </properties>
@@ -80,18 +80,18 @@ Under src/config you could find:
 * "eclipse-formatter.xml":https://github.com/geronimo-iia/intelligents-ia/tree/master/src/config/eclipse-formatter.xml
 
 
-h2. Find which version, tags and commit, comment that running 
+h2. Find which version, tags and commit, comment that running
 
 From "git-commit-id-plugin":https://github.com/ktoso/maven-git-commit-id-plugin
 
 This generate some usefull information in:
 
-bc. 
+bc.
 src/main/resources/git.properties
 
 Add in your .gitignore
 
-bc. 
+bc.
 # git.properties
 git.properties
 
@@ -107,7 +107,7 @@ bc. mvn -Pdownloads-github
 
 
 # add a server section in your settings.xml
-bc. 
+bc.
 <servers>
   <server>
     <id>github</id>
@@ -131,17 +131,17 @@ h2. Configure your pom
 
 h3. add parent section
 
-bc. 
+bc.
 <parent>
 	<groupId>org.intelligents-ia</groupId>
 	<artifactId>intelligents-ia</artifactId>
-	<version>1.4.5</version>
+	<version>1.4.7</version>
 </parent>
 
 h3. add initial repository
 
 
-bc. 
+bc.
 <repositories>
 	<repository>
 		<id>intelligents-ia-releases</id>
@@ -159,14 +159,17 @@ bc.
 
 
 h2. Release Notes
- 
 
-h3. 1.4.54-SNAPSHOT
 
-Some idea for the next release:
-* site-maven-plugin
+h3. 1.4.7
 
-h3. 1.4.%
+Change list:
+* update plugin version (maven, jgitflow, ...)
+* change distribution management (extract root url from pom and use variable 'intelligentsia.distribution.management')
+* distribution supported now: ssh and ftp protocol
+* add plugin keystone in plugins management section, use 'keystone-plugin.version' to manage version (3.1 by default)
+
+h3. 1.4.4
 
 Change list:
 * add id on all plugins execution
@@ -178,19 +181,14 @@ Change list:
 * add optimized compilation
 * integrate download "github plugin":https://github.com/github/maven-plugins
 * fix issue on maven-antrun-plugin version
-* activate license plugin and add skip mechanism with property 'license.skip' 
-* create profile intelligents-ia, activated per default  
+* activate license plugin and add skip mechanism with property 'license.skip'
+* create profile intelligents-ia, activated per default
 
 
 h3. 1.4.1
- 
+
 Change list:
 * add older repository
 * add license plugin configuration
 * add gnupg plugin configuration
 * add initial config for maven site plugin
-
-
-
-
-
