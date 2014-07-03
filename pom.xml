@@ -4,7 +4,7 @@
 	<artifactId>intelligents-ia</artifactId>
 	<packaging>pom</packaging>
 	<name>Intelligents-ia</name>
-	<version>1.4.7-SNAPSHOT</version>
+	<version>1.4.7</version>
 	<description>Super POM for Intelligents-ia Project.</description>
 	<url>http://intelligents-ia.com</url>
 	<inceptionYear>2011</inceptionYear>
@@ -29,7 +29,8 @@
 	<scm>
 		<url>https://github.com/geronimo-iia/intelligents-ia.git</url>
 		<connection>scm:git:https://github.com/geronimo-iia/intelligents-ia.git</connection>
-	</scm>
+	  <tag>intelligents-ia-1.4.7</tag>
+  </scm>
 	<organization>
 		<name>Intelligents-ia</name>
 		<url>http://intelligents-ia.com</url>
