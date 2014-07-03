@@ -112,15 +112,7 @@ From "GitHub":https://github.com/github/maven-plugins, if you would upload artif
 	mvn -Pdownloads-github
 
 
-2. add a server section in your settings.xml
-
-	<servers>
-	  <server>
-	    <id>github</id>
-	    <username>GitHubLogin</username>
-	    <password>GitHubPassw0rd</password>
-	  </server>
-	</servers>
+2. add a server section in your 'settings.xml' with id 'github'
 
 
 
@@ -138,6 +130,10 @@ Configure your pom
 ------------------
 
 1. add parent section
+2. add initial repository
+
+ 
+For example:
 
 
 	<parent>
@@ -145,11 +141,7 @@ Configure your pom
 		<artifactId>intelligents-ia</artifactId>
 		<version>1.4.7</version>
 	</parent>
-
-
-2. add initial repository
-
-
+	. . .
 	<repositories>
 		<repository>
 			<id>intelligents-ia-releases</id>
