@@ -161,6 +161,13 @@ For example:
 Release Notes
 =============
 
+1.4.8 (SNAPSHOT)
+----------------
+
+Change list:
+* add jvm.specification.version property
+* add enforcer plugin declaration (not activated by default)
+
 1.4.7
 -----
 
